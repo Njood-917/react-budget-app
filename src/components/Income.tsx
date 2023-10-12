@@ -1,4 +1,18 @@
+import { type } from "os";
 import React, { useState } from "react";
+import Expense from './Expense';
+
+type IncomeType = {
+  name: "";
+  amount: 0;
+  date: Date;
+}
+
+type Prop = {
+  setUserIncomeInput: React.Dispatch<React.SetStateAction<IncomeType>>
+
+  }
+
 
 function Income() {
   const [userInput, setUserInput] = useState({
@@ -31,6 +45,23 @@ function Income() {
     // Reset the userInput state to empty or default values
     setUserInput({ name: "", amount: 0, date: new Date() });
   }
+
+  // we can use one function to all these values
+  // const handleChange = (event:ChangeEvent<HTMLInputElement>)=>{
+   // const {name,value} = event.target , put all the value you have based on name 
+   // setUserInput ((prevInput)=>{
+    //return {...prevInput, [name]:value};
+    //});};
+   
+// create empty array to store the value fromuserInput
+      //const [incomes , setIncomes]= useState<IncomeTypes[]>([])
+       //const handleSubmit = (event:FormEvent)=>{
+      //  event.preventDefault();
+      //setUserInput return((prevInput)=>
+      //return [...prevInput, incomes])} 
+      // we can declare the type of array one time in file  and put:type IncomeExpenseTypes and import it  
+    
+  
   return (
     <div>
       <form onSubmit={onSubmitHandler}>
@@ -57,7 +88,7 @@ function Income() {
         </div>
 
         <div>
-          <label htmlFor="Date"> Date of Income:</label>
+          <label htmlFor="incomeDate"> Date of Income:</label>
 
           <input
             type="date"

@@ -34,7 +34,7 @@ function onSubmitHandler(event: React.FormEvent<HTMLFormElement>) {
     <div>
       <form onSubmit={onSubmitHandler}>
         <div>
-          <label htmlFor="Expense">Expense source:</label>
+          <label>Expense source:  </label>
 
           <input
             type="text"
@@ -43,6 +43,7 @@ function onSubmitHandler(event: React.FormEvent<HTMLFormElement>) {
             value={userInput.name}
             onChange={getExpenseSource}
           />
+          
         </div>
 
         <div>
