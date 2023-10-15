@@ -1,7 +1,11 @@
 import React, {FormEvent, useState , ChangeEvent} from "react";
+type  TransferForSavingTypes={
+  getTransferAmount: (amount: number) => void;
 
+}
 
-function TransferForSaving() {
+function TransferForSaving(props:TransferForSavingTypes) {
+  
  
     const [transferAmount, setTransferAmount] = useState(0);
     function onChangeHandler (event:ChangeEvent<HTMLInputElement>){
@@ -11,7 +15,7 @@ function TransferForSaving() {
      
         function handleSubmit(event:FormEvent){
           event.preventDefault();
-          console.log(transferAmount)
+          props.getTransferAmount(transferAmount)
           setTransferAmount(0); // to return the input empty
         }
   return (

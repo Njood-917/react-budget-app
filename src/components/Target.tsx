@@ -1,6 +1,10 @@
 import React, {FormEvent, useState , ChangeEvent} from "react";
+type Targetprops ={
+  savingAmount:number;
+}
 
-function Target() {
+
+export default function Target(props:Targetprops) {
  
 const [target , setTarge]=useState(0)
   function onChangeHandler (event:ChangeEvent<HTMLInputElement>){
@@ -28,7 +32,7 @@ const [target , setTarge]=useState(0)
 
       <div> 
         <p>Target:{target}</p>
-        <p>Current Saving :100</p>
+        <p>Current Saving :{props.savingAmount}</p>
         <progress  max={2000} value={20}></progress>
        
         </div>
@@ -36,4 +40,3 @@ const [target , setTarge]=useState(0)
   );
   }
 
-export default Target;

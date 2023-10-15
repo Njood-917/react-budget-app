@@ -1,67 +1,67 @@
 import { type } from "os";
 import React, { useState } from "react";
-import Expense from './Expense';
+import { FaTrash } from "react-icons/fa";
+import { v4 as uuidv4 } from "uuid";
+import Expense from "./Expense";
+import IncomeItem from "./IncomeItem";
+import {IncomeType} from '../types/types'
 
-type IncomeType = {
-  name: "";
-  amount: 0;
-  date: Date;
-}
+
 
 type Prop = {
-  setUserIncomeInput: React.Dispatch<React.SetStateAction<IncomeType>>
+  setUserIncomeInput: React.Dispatch<React.SetStateAction<IncomeType>>;
+};
 
-  }
-
-
-function Income() {
-  const [userInput, setUserInput] = useState({
+export default function Income() {
+  const [userInput, setUserInput] = useState<IncomeType>({
     name: "",
     amount: 0,
     date: new Date(),
+    id: uuidv4(),
   });
 
-  const [uesrEnformationList, setuesrEnformationList] = useState<
-    { name: string; amount: number; date: Date }[]
-  >([]);
+  const [uesrEnformationList, setuesrEnformationList] = useState<IncomeType[]>(
+    []
+  );
 
   function getIncomeSource(event: React.ChangeEvent<HTMLInputElement>) {
     setUserInput({ ...userInput, name: event.target.value });
   }
 
   function getIncomeAmount(event: React.ChangeEvent<HTMLInputElement>) {
-    console.log(event.target.value);
     setUserInput({ ...userInput, amount: Number(event.target.value) });
   }
   function getIncomeDate(event: React.ChangeEvent<HTMLInputElement>) {
-    console.log(event.target.value);
     setUserInput({ ...userInput, date: new Date(event.target.value) });
   }
 
   function onSubmitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    // const newIncome = {...userInput,id:uuidv4()} // generate unique id to delet just one item inside an array not all the items
     setuesrEnformationList([...uesrEnformationList, userInput]);
 
+    console.log(userInput);
+
     // Reset the userInput state to empty or default values
-    setUserInput({ name: "", amount: 0, date: new Date() });
+    setUserInput({ name: "", amount: 0, date: new Date(), id: "" });
   }
 
+  
   // we can use one function to all these values
   // const handleChange = (event:ChangeEvent<HTMLInputElement>)=>{
-   // const {name,value} = event.target , put all the value you have based on name 
-   // setUserInput ((prevInput)=>{
-    //return {...prevInput, [name]:value};
-    //});};
-   
-// create empty array to store the value fromuserInput
-      //const [incomes , setIncomes]= useState<IncomeTypes[]>([])
-       //const handleSubmit = (event:FormEvent)=>{
-      //  event.preventDefault();
-      //setUserInput return((prevInput)=>
-      //return [...prevInput, incomes])} 
-      // we can declare the type of array one time in file  and put:type IncomeExpenseTypes and import it  
-    
-  
+  // const {name,value} = event.target , put all the value you have based on name
+  // setUserInput ((prevInput)=>{
+  //return {...prevInput, [name]:value};
+  //});};
+
+  // create empty array to store the value fromuserInput
+  //const [incomes , setIncomes]= useState<IncomeTypes[]>([])
+  //const handleSubmit = (event:FormEvent)=>{
+  //  event.preventDefault();
+  //setUserInput return((prevInput)=>
+  //return [...prevInput, incomes])}
+  // we can declare the type of array one time in file  and put:type IncomeExpenseTypes and import it
+
   return (
     <div>
       <form onSubmit={onSubmitHandler}>
@@ -100,18 +100,9 @@ function Income() {
         <button>Add Income</button>
       </form>
 
-      {uesrEnformationList.map((user, index) => (
-        <div key={index}>
-          <ul>
-            <li>
-              {user.name}:{user.amount}{user.date.toDateString()}
-            </li>
-          </ul>
-          {/*we need to string to render the date to ensure that'not object */}
-        </div>
-      ))}
+      {uesrEnformationList.map((user) => {
+        return <IncomeItem user={user}  uesrEnformationList={uesrEnformationList} setuesrEnformationList={setuesrEnformationList}/>;
+      })}
     </div>
   );
 }
-
-export default Income;

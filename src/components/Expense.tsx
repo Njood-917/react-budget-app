@@ -1,6 +1,6 @@
-import React , {useState} from "react";
+import React , {useState , ChangeEvent,FormEvent} from "react";
 
-function Expense() {
+export default function Expense() {
   const [userInput, setUserInput] = useState({
     name: "",
     amount: 0,
@@ -13,16 +13,15 @@ function Expense() {
 function getExpenseSource(event: React.ChangeEvent<HTMLInputElement>) {
   setUserInput({ ...userInput, name: event.target.value });
 }
-function getExpenseAmount(event: React.ChangeEvent<HTMLInputElement>) {
-  console.log(event.target.value);
+function getExpenseAmount(event: ChangeEvent<HTMLInputElement>) {
   setUserInput({ ...userInput, amount: Number(event.target.value) });
 }
-function getExpenseDate(event: React.ChangeEvent<HTMLInputElement>) {
+function getExpenseDate(event:ChangeEvent<HTMLInputElement>) {
   console.log(event.target.value);
   setUserInput({ ...userInput, date: new Date(event.target.value) });
 }
 
-function onSubmitHandler(event: React.FormEvent<HTMLFormElement>) {
+function onSubmitHandler(event: FormEvent<HTMLFormElement>) {
   event.preventDefault();
   setuesrEnformationList([...uesrEnformationList, userInput]);
 
@@ -57,7 +56,7 @@ function onSubmitHandler(event: React.FormEvent<HTMLFormElement>) {
         <div>
           <label htmlFor="Date of Expense">Date of Expense: </label>
 
-          <input type="Date" name="Date of Expense"
+          <input type="date" name="Date of Expense"
           value={userInput.date.toString()}
           onChange={getExpenseDate} />
         </div>
@@ -69,7 +68,7 @@ function onSubmitHandler(event: React.FormEvent<HTMLFormElement>) {
         <div key={index}>
           <ul>
             <li>
-              {user.name}:{user.amount}{user.date.toDateString()}
+              {user.name}:{user.amount}SAR on {user.date.toDateString()}
             </li>
           </ul>
           {/*we need to string to render the date to ensure that'not object */}
@@ -79,4 +78,4 @@ function onSubmitHandler(event: React.FormEvent<HTMLFormElement>) {
   );
 }
 
-export default Expense;
+
